@@ -8,9 +8,9 @@ namespace Rock_Paper_Scissors
 {
     public class FirstGameStrategy : IGameStrategy
     {
-        public string DetermineGameChoice(string player1Choice, string player2Choice)
+        public string DetermineGameChoice(string opponentChoice, string playerChoice)
         {
-            var choice = player2Choice.ToLower();
+            var choice = playerChoice.ToLower();
             switch (choice)
             {
                 case "x": return "a";

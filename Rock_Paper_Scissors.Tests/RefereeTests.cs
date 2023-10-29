@@ -3,30 +3,26 @@ namespace Rock_Paper_Scissors.Tests
     [TestClass]
     public class RefereeTests
     {
-        [DataRow("A", "Y", 8)]
-        [DataRow("B", "X", 1)]
-        [DataRow("C", "Z", 6)]
+        [DataRow("A", "b", 8)]
+        [DataRow("B", "a", 1)]
+        [DataRow("C", "c", 6)]
         [TestMethod]
-        public void Referee_GetGameScorePlayer2_FirstStrategy_Gets_Correct_Results_For_Player2(string player1Play, string player2Play, int expectedScore)
+        public void Referee_GetGameScorePlayer_FirstStrategy_Gets_Correct_Results_For_Player(string opponentChoice, string playerChoice, int expectedScore)
         {
-            IGameStrategy gameStrategy = new FirstGameStrategy();
-            Referee referee = new Referee(gameStrategy);
-
-            var result = referee.GetGameScorePlayer2(player1Play, player2Play);
+            Referee referee = new Referee();
+            var result = referee.GetGameScorePlayer(opponentChoice, playerChoice);
 
             Assert.AreEqual(expectedScore, result);
         }
 
-        [DataRow("A", "Y", 4)]
-        [DataRow("B", "X", 1)]
-        [DataRow("C", "Z", 7)]
+        [DataRow("A", "a", 4)]
+        [DataRow("B", "a", 1)]
+        [DataRow("C", "a", 7)]
         [TestMethod]
-        public void Referee_GetGameScorePlayer2_SecondStrategy_Gets_Correct_Results_For_Player2(string player1Play, string player2Play, int expectedScore)
+        public void Referee_GetGameScorePlayer2_SecondStrategy_Gets_Correct_Results_For_Player2(string opponentChoice, string playerChoice, int expectedScore)
         {
-            IGameStrategy gameStrategy = new SecondGameStrategy();
-            Referee referee = new Referee(gameStrategy);
-
-            var result = referee.GetGameScorePlayer2(player1Play, player2Play);
+            Referee referee = new Referee();
+            var result = referee.GetGameScorePlayer(opponentChoice, playerChoice);
 
             Assert.AreEqual(expectedScore, result);
         }

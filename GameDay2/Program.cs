@@ -1,6 +1,7 @@
 ﻿using AdventGames.Data;
 using AdventGames.Data.Models;
 using Rock_Paper_Scissors;
+using System.Dynamic;
 using System.Numerics;
 
 namespace GameDay2
@@ -14,13 +15,13 @@ namespace GameDay2
                 "Dit programma berekent de totale score van een aantal wedstrijden\n" +
                 "Rock Paper Scissors op basis van een spel strategie\n" +
                 "\n" +
-                "De wedstrijdresultaten staan in een bestand wat bij deze code wordt meegeleverd.\n" +
+                "De wedstrijdresultaten staan in een bestand wat bij deze code wordt meegeleverd\n" +
                 "Zie Data\\Day2Gamedata.txt\n" +
                 "\n" +
                 "Er kan een spel strategy gekozen worden door op de commandline\n" +
-                "een 1 of een 2 in te voeren:\n" +
+                "een 1 voor de strategie van part 1 of een 2 voor de strategie van part 2 in te voeren:\n" +
                 "Gameday2 <gamestrategy>\n" +
-                "Zonder keuze wordt strategy 1 gebruikt.\n" +
+                "Zonder keuze wordt strategie 1 gebruikt\n" +
                 "\n" +
                 "Het resultaat kan ingevoerd worden op https://adventofcode.com/2022/day/2" +
                 "\n");
@@ -30,7 +31,9 @@ namespace GameDay2
                 // Initialize                
                 // Default the firstgamestrategy is selected.
                 IGameStrategy gameStrategy = DeterminegameStrategy(args);
-                Referee referee = new Referee(gameStrategy);
+
+                // De referee is de scheidsrechter die de regels kent en de score bepaalt
+                Referee referee = new Referee();
                 BigInteger totalScore = 0;
 
                 // Read data
@@ -40,7 +43,10 @@ namespace GameDay2
                 // Sum scores
                 foreach (var item in data)
                 {
-                    totalScore += referee.GetGameScorePlayer2(item.player1Input, item.player2Input);
+                    string opponentChoice = item.opponentInput;
+                    string playerChoice = gameStrategy.DetermineGameChoice(opponentChoice, item.playerInput);
+
+                    totalScore += referee.GetGameScorePlayer(opponentChoice, playerChoice);
                 }
 
                 // Present totalscore
@@ -52,21 +58,30 @@ namespace GameDay2
             }
 
             Console.WriteLine();
-            Console.WriteLine("Druk op een toets om het programma af te sluiten.");
+            Console.WriteLine("Druk op een toets om het programma af te sluiten");
             Console.ReadKey();
         }
 
         private static IGameStrategy DeterminegameStrategy(string[] args)
         {
-            IGameStrategy gameStrategy = new FirstGameStrategy();
-            if (args.Length > 0)
-            {
-                if (args[0].Equals("1"))
-                    gameStrategy = new FirstGameStrategy();
-                if (args[0].Equals("2"))
-                    gameStrategy = new SecondGameStrategy();
-            }
+            string strategyChoice = "1";
+            IGameStrategy gameStrategy;
 
+            if (args.Length > 0)
+                strategyChoice = args[0];
+
+            switch (strategyChoice)
+            {
+                case "2":
+                    gameStrategy = new SecondGameStrategy();
+                    Console.WriteLine("Strategie geselecteerd van part 2");
+                    break;
+                case "1":
+                default:
+                    gameStrategy = new FirstGameStrategy();
+                    Console.WriteLine("Strategie geselecteerd van part 1");
+                    break;
+            }
             return gameStrategy;
         }
     }

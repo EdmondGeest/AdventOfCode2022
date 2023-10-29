@@ -13,34 +13,28 @@ namespace Rock_Paper_Scissors
     /// </summary>
     public class Referee
     {
-        private IGameStrategy gameStrategy;
-
-        public Referee(IGameStrategy strategy) 
+        public Referee() 
         {
-            this.gameStrategy = strategy;
         }
 
         /// <summary>
-        /// Deze functie berekent de score van player2 voor een wedstrijd Rock Paper Scissors
+        /// Deze functie berekent de score van playerChoice voor een wedstrijd Rock Paper Scissors
         /// </summary>
-        /// <param name="player1"></param>
+        /// <param name="opponentChoice"></param>
         /// <param name="player2"></param>
-        /// <returns>Score van player2</returns>
-        public int GetGameScorePlayer2(string player1, string player2)
+        /// <returns>Score van playerChoice</returns>
+        public int GetGameScorePlayer(string opponentChoice, string playerChoice)
         {
-            // Pas strategie toe
-            string player2Choice = gameStrategy.DetermineGameChoice(player1, player2);
+            // Bepaal basisscore player
+            int scorePlayer = DetermineBaseScorePlayer(playerChoice);
 
-            // Bepaal basisscore player 2
-            int scorePlayer2 = DetermineBaseScorePlayer2(player2Choice);
+            // Bepaal het wedstrijdresultaat
+            GameResultEnum gameResultPlayer = DetermineGameResultPlayer(opponentChoice, playerChoice);
 
-            // Bepaal het wedtrijdresultaat
-            GameResultEnum gameResultPlayer2 = DetermineGameResultPlayer2(player1, player2Choice);
+            // Bepaal eindscore player
+            scorePlayer = DetermineFinalScorePlayer(scorePlayer, gameResultPlayer);
 
-            // Bepaal eindscore player 2
-            scorePlayer2 = DetermineFinalScorePlayer(scorePlayer2, gameResultPlayer2);
-
-            return scorePlayer2;
+            return scorePlayer;
         }
 
         /// <summary>
@@ -51,7 +45,7 @@ namespace Rock_Paper_Scissors
         /// </summary>
         /// <param name="player"></param>
         /// <returns>de basisscore</returns>
-        private int DetermineBaseScorePlayer2(string player)
+        private int DetermineBaseScorePlayer(string player)
         {
             int score = 0;
             switch (player.ToLower())
@@ -73,21 +67,21 @@ namespace Rock_Paper_Scissors
         }
 
         /// <summary>
-        /// Deze functie bepaalt de wedstrijduitslag voor player2 
+        /// Deze functie bepaalt de wedstrijduitslag voor player
         /// Win
         /// Draw
         /// Loss
         /// </summary>
-        /// <param name="player1"></param>
-        /// <param name="player2"></param>
+        /// <param name="opponentChoice"></param>
+        /// <param name="playerChoice"></param>
         /// <returns>Wedstrijduitslag</returns>
-        public GameResultEnum DetermineGameResultPlayer2(string player1, string player2)
+        public GameResultEnum DetermineGameResultPlayer(string opponentChoice, string playerChoice)
         {
             GameResultEnum gameResult = GameResultEnum.Draw;
-            switch (player1.ToLower())
+            switch (opponentChoice.ToLower())
             {
                 case "a":
-                    switch (player2.ToLower())
+                    switch (playerChoice.ToLower())
                     {
                         case "a":
                             gameResult = GameResultEnum.Draw;
@@ -103,7 +97,7 @@ namespace Rock_Paper_Scissors
                     }
                     break;
                 case "b":
-                    switch (player2.ToLower())
+                    switch (playerChoice.ToLower())
                     {
                         case "a":
                             gameResult = GameResultEnum.Loss;
@@ -119,7 +113,7 @@ namespace Rock_Paper_Scissors
                     }
                     break;
                 case "c":
-                    switch (player2.ToLower())
+                    switch (playerChoice.ToLower())
                     {
                         case "a":
                             gameResult = GameResultEnum.Win;

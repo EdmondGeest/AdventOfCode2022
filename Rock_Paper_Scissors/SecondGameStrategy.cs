@@ -8,15 +8,15 @@ namespace Rock_Paper_Scissors
 {
     public class SecondGameStrategy : IGameStrategy
     {
-        public string DetermineGameChoice(string player1Choice, string player2Choice)
+        public string DetermineGameChoice(string opponentChoice, string playerChoice)
         {
-            string choicePlayer1 = player1Choice.ToLower();
-            string choicePlayer2 = player2Choice.ToLower();
+            string choiceOpponent = opponentChoice.ToLower();
+            string choicePlayer = playerChoice.ToLower();
 
-            switch (choicePlayer2)
+            switch (choicePlayer)
             {
                 case "y": // Draw
-                    switch (choicePlayer1)
+                    switch (choiceOpponent)
                     {
                         case "a": return "a";
                         case "b": return "b";
@@ -26,7 +26,7 @@ namespace Rock_Paper_Scissors
                     }
                     break;
                 case "x": // Lose
-                    switch (choicePlayer1)
+                    switch (choiceOpponent)
                     {
                         case "a": return "c";
                         case "b": return "a";
@@ -36,7 +36,7 @@ namespace Rock_Paper_Scissors
                     }
                     break;
                 case "z": // Win
-                    switch (choicePlayer1)
+                    switch (choiceOpponent)
                     {
                         case "a": return "b";
                         case "b": return "c";
@@ -48,7 +48,7 @@ namespace Rock_Paper_Scissors
                 default:
                     break;
             }
-            return player1Choice;
+            return opponentChoice;
         }
     }
 }
