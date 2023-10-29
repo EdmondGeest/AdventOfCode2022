@@ -3,7 +3,7 @@
     /// <summary>
     /// Deze enum geeft de wedstrijduitslag aan
     /// </summary>
-    enum GameResultEnum
+    public enum GameResultEnum
     {
         Win,
         Draw,

@@ -13,7 +13,12 @@ namespace Rock_Paper_Scissors
     /// </summary>
     public class Referee
     {
-        public Referee() { }
+        private IGameStrategy gameStrategy;
+
+        public Referee(IGameStrategy strategy) 
+        {
+            this.gameStrategy = strategy;
+        }
 
         /// <summary>
         /// Deze functie berekent de score van player2 voor een wedstrijd Rock Paper Scissors
@@ -23,11 +28,14 @@ namespace Rock_Paper_Scissors
         /// <returns>Score van player2</returns>
         public int GetGameScorePlayer2(string player1, string player2)
         {
+            // Pas strategie toe
+            string player2Choice = gameStrategy.DetermineGameChoice(player1, player2);
+
             // Bepaal basisscore player 2
-            int scorePlayer2 = DetermineBaseScorePlayer2(player2);
+            int scorePlayer2 = DetermineBaseScorePlayer2(player2Choice);
 
             // Bepaal het wedtrijdresultaat
-            GameResultEnum gameResultPlayer2 = DetermineGameResultPlayer2(player1, player2);
+            GameResultEnum gameResultPlayer2 = DetermineGameResultPlayer2(player1, player2Choice);
 
             // Bepaal eindscore player 2
             scorePlayer2 = DetermineFinalScorePlayer(scorePlayer2, gameResultPlayer2);
@@ -48,13 +56,13 @@ namespace Rock_Paper_Scissors
             int score = 0;
             switch (player.ToLower())
             {
-                case "x":
+                case "a":
                     score = 1;
                     break;
-                case "y":
+                case "b":
                     score = 2;
                     break;
-                case "z":
+                case "c":
                     score = 3;
                     break;
                 default:
@@ -73,7 +81,7 @@ namespace Rock_Paper_Scissors
         /// <param name="player1"></param>
         /// <param name="player2"></param>
         /// <returns>Wedstrijduitslag</returns>
-        private GameResultEnum DetermineGameResultPlayer2(string player1, string player2)
+        public GameResultEnum DetermineGameResultPlayer2(string player1, string player2)
         {
             GameResultEnum gameResult = GameResultEnum.Draw;
             switch (player1.ToLower())
@@ -81,13 +89,13 @@ namespace Rock_Paper_Scissors
                 case "a":
                     switch (player2.ToLower())
                     {
-                        case "x":
+                        case "a":
                             gameResult = GameResultEnum.Draw;
                             break;
-                        case "y":
+                        case "b":
                             gameResult = GameResultEnum.Win;
                             break;
-                        case "z":
+                        case "c":
                             gameResult = GameResultEnum.Loss;
                             break;
                         default:
@@ -97,13 +105,13 @@ namespace Rock_Paper_Scissors
                 case "b":
                     switch (player2.ToLower())
                     {
-                        case "x":
+                        case "a":
                             gameResult = GameResultEnum.Loss;
                             break;
-                        case "y":
+                        case "b":
                             gameResult = GameResultEnum.Draw;
                             break;
-                        case "z":
+                        case "c":
                             gameResult = GameResultEnum.Win;
                             break;
                         default:
@@ -113,13 +121,13 @@ namespace Rock_Paper_Scissors
                 case "c":
                     switch (player2.ToLower())
                     {
-                        case "x":
+                        case "a":
                             gameResult = GameResultEnum.Win;
                             break;
-                        case "y":
+                        case "b":
                             gameResult = GameResultEnum.Loss;
                             break;
-                        case "z":
+                        case "c":
                             gameResult = GameResultEnum.Draw;
                             break;
                         default:

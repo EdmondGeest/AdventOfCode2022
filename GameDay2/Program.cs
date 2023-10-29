@@ -10,17 +10,32 @@ namespace GameDay2
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, Advent games day2 player!");
-            Console.WriteLine();
+            Console.WriteLine("\n" +
+                "Dit programma berekent de totale score van een aantal wedstrijden\n" +
+                "Rock Paper Scissors op basis van een spel strategie\n" +
+                "\n" +
+                "De wedstrijdresultaten staan in een bestand wat bij deze code wordt meegeleverd.\n" +
+                "Zie Data\\Day2Gamedata.txt\n" +
+                "\n" +
+                "Er kan een spel strategy gekozen worden door op de commandline\n" +
+                "een 1 of een 2 in te voeren:\n" +
+                "Gameday2 <gamestrategy>\n" +
+                "Zonder keuze wordt strategy 1 gebruikt.\n" +
+                "\n" +
+                "Het resultaat kan ingevoerd worden op https://adventofcode.com/2022/day/2" +
+                "\n");
 
             try
             {
-                // Intialize 
-                Referee referee = new Referee();
+                // Initialize                
+                // Default the firstgamestrategy is selected.
+                IGameStrategy gameStrategy = DeterminegameStrategy(args);
+                Referee referee = new Referee(gameStrategy);
                 BigInteger totalScore = 0;
 
                 // Read data
                 AdventGamesRepository repository = new AdventGamesRepository();
-                List<RPSResult> data = repository.GetRPSResults(@"Data\Day2GameData.txt");
+                List<RPSGameRecord> data = repository.GetRPSRecords(@"Data\Day2GameData.txt");
 
                 // Sum scores
                 foreach (var item in data)
@@ -39,6 +54,20 @@ namespace GameDay2
             Console.WriteLine();
             Console.WriteLine("Druk op een toets om het programma af te sluiten.");
             Console.ReadKey();
+        }
+
+        private static IGameStrategy DeterminegameStrategy(string[] args)
+        {
+            IGameStrategy gameStrategy = new FirstGameStrategy();
+            if (args.Length > 0)
+            {
+                if (args[0].Equals("1"))
+                    gameStrategy = new FirstGameStrategy();
+                if (args[0].Equals("2"))
+                    gameStrategy = new SecondGameStrategy();
+            }
+
+            return gameStrategy;
         }
     }
 }

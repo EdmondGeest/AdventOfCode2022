@@ -10,7 +10,15 @@ namespace GameDay25
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, Advent games day25 player!");
-            Console.WriteLine();
+            Console.WriteLine("\n" +
+                "Dit programma berekent het SNAFU nummer dat moet worden \n" +
+                "ingevoerd in Bob's console.\n" +
+                "\n" +
+                "De snafu nummers van de vaten staan in een bestand wat bij deze code wordt meegeleverd.\n" +
+                "Zie Data\\Day25Gamedata.txt\n" +
+                "\n" +
+                "Het resultaat kan ingevoerd worden op https://adventofcode.com/2022/day/25" +
+                "\n");
 
             try
             {
@@ -20,7 +28,7 @@ namespace GameDay25
 
                 // Read data
                 AdventGamesRepository repository = new AdventGamesRepository();
-                List<SnafuNumber> snafuNumbers = repository.GetSnafuNumbers(@"Data\Day25GameData.txt");
+                List<SnafuNumberRecord> snafuNumbers = repository.GetSnafuNumberRecords(@"Data\Day25GameData.txt");
 
                 // Convert items to decimals and sum up
                 foreach (var number in snafuNumbers)
@@ -32,7 +40,7 @@ namespace GameDay25
                 String snafuNumber = convertor.ConvertDecimalToSnafuNumber(result);
 
                 // Present snafunumber
-                Console.WriteLine(string.Format("The SnafuNumber is {0}", snafuNumber));
+                Console.WriteLine(string.Format("Het SNAFU nummer is {0}", snafuNumber));
             }
             catch (Exception ex)
             {

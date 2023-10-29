@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace AdventGames.Data.Models
 {
-    public class SnafuNumber
+    public class SnafuNumberRecord
     {
         public string Number { get; set; }
 
-        public static SnafuNumber Create(string number)
+        public static SnafuNumberRecord Create(string number)
         {
-            return new SnafuNumber { Number = number.Trim() };
+            return new SnafuNumberRecord { Number = number.Trim() };
         }
     }
 }

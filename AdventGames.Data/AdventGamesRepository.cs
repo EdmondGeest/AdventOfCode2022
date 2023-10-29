@@ -13,16 +13,16 @@ namespace AdventGames.Data
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns>Wedstrijdresultaten</returns>
-        public List<RPSResult> GetRPSResults(string fileName)
+        public List<RPSGameRecord> GetRPSRecords(string fileName)
         {
-            List<RPSResult> result = new List<RPSResult>();
+            List<RPSGameRecord> result = new List<RPSGameRecord>();
 
-            IEnumerable<string> rpsGameResults = File.ReadLines(fileName);
-            foreach (string psGameResult in rpsGameResults)
+            IEnumerable<string> rpsGameRecords = File.ReadLines(fileName);
+            foreach (string psGameResult in rpsGameRecords)
             {
-                string[] gameResult = psGameResult.Split(new char[] { ' ', });
-                RPSResult rpsResult = RPSResult.Create(gameResult[0], gameResult[1]);
-                result.Add(rpsResult);
+                string[] gameRecord = psGameResult.Split(new char[] { ' ', });
+                RPSGameRecord rpsRecord = RPSGameRecord.Create(gameRecord[0], gameRecord[1]);
+                result.Add(rpsRecord);
             }
 
             return result;
@@ -34,15 +34,15 @@ namespace AdventGames.Data
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns>Lijst met snafu nummers</returns>
-        public List<SnafuNumber> GetSnafuNumbers(string fileName)
+        public List<SnafuNumberRecord> GetSnafuNumberRecords(string fileName)
         {
-            List<SnafuNumber> result = new List<SnafuNumber>();
+            List<SnafuNumberRecord> result = new List<SnafuNumberRecord>();
 
-            IEnumerable<string> snafuNumbers = File.ReadLines(fileName);
-            foreach(string number in snafuNumbers)
+            IEnumerable<string> snafuNumberRecords = File.ReadLines(fileName);
+            foreach(string numberRecord in snafuNumberRecords)
             {
-                SnafuNumber snafuNumber = SnafuNumber.Create(number);
-                result.Add(snafuNumber);
+                SnafuNumberRecord snafuNumberRecord = SnafuNumberRecord.Create(numberRecord);
+                result.Add(snafuNumberRecord);
             }
 
             return result;
