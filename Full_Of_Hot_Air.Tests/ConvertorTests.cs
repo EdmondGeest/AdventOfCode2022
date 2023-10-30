@@ -79,5 +79,22 @@ namespace Full_Of_Hot_Air.Tests
 
             Assert.AreEqual("2=-1=0", snafuResult);
         }
+
+        [DataRow("=", true)]
+        [DataRow("-", true)]
+        [DataRow("0", true)]
+        [DataRow("1", true)]
+        [DataRow("2", true)]
+        [DataRow("3", false)]
+        [DataRow("1121-1110-1=0", true)]
+        [DataRow("1121X1110-1=0", false)]
+        [TestMethod]
+        public void ElfsSnafuConvertor_Validates_SnafuNumbers(string snafuNumber, bool valid)
+        {
+            SNAFUNumberConvertor convertor = new SNAFUNumberConvertor();
+            var result = convertor.ValidateSnafuNumber(snafuNumber);
+
+            Assert.AreEqual(valid, result);
+        }
     }
 }

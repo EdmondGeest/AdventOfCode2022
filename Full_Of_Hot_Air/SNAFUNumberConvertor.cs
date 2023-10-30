@@ -21,24 +21,47 @@ namespace Full_Of_Hot_Air
         private string SnafuDigits = "=-012";
 
         /// <summary>
+        /// Deze functie valideert de snafu nummers
+        /// </summary>
+        /// <param name="snafuNumber"></param>
+        /// <returns></returns>
+        public bool ValidateSnafuNumber(string snafuNumber)
+        {
+            bool result = true;
+            string[] snafuNumberArray = snafuNumber.Select(x => x.ToString()).ToArray();
+
+            foreach (var item in snafuNumberArray)
+            {
+                result = result && SnafuDigits.Any(x => x.ToString().Equals(item));
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Deze functie converteert een snafunummer naar een decimaal
         /// </summary>
         /// <param name="snafuNumber"></param>
         /// <returns>snafunumber als decimaal</returns>
         public Decimal ConvertSnafuNumberToDecimal(string snafuNumber)
         {
-            string[] snafuNumberArray = snafuNumber.Select(x => x.ToString()).ToArray();
-
-            Decimal result = 0;
-            int power = 0;
-
-            for (int i = snafuNumberArray.Length - 1; i >= 0; i--)
+            if (ValidateSnafuNumber(snafuNumber))
             {
-                int value = ConvertSnafuDigitToInt(snafuNumberArray[i]);
-                result = result + (Decimal)(value * (Math.Pow(5, power++)));
-            }
+                Decimal result = 0;
+                int power = 0;
 
-            return result;
+                string[] snafuNumberArray = snafuNumber.Select(x => x.ToString()).ToArray();
+
+
+                for (int i = snafuNumberArray.Length - 1; i >= 0; i--)
+                {
+                    int value = ConvertSnafuDigitToInt(snafuNumberArray[i]);
+                    result = result + (Decimal)(value * (Math.Pow(5, power++)));
+                }
+
+                return result;
+            }
+            else
+                throw new ArgumentException(string.Format("Er is een foutief SNAFU nummer aangeleverd", snafuNumber));
 
         }
 
