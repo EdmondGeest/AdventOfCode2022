@@ -32,9 +32,9 @@ namespace GameDay2
                 // De referee is de scheidsrechter die de regels kent en de score bepaalt
                 Referee referee = Referee.Create();
 
-                // Read gameRecords
+                // Read strategyRecords
                 AdventGamesRepository repository = AdventGamesRepository.Create();
-                List<RPSGameRecord> gameRecords = repository.GetRPSRecords(@"Data\Day2GameData.txt");
+                List<RPSStrategyRecord> strategyRecords = repository.GetRPSStrategyGuide(@"Data\Day2GameData.txt");
 
                 // loop through strategies and show totalscore
                 for (int i = 1; i <= 2; i++)
@@ -44,13 +44,13 @@ namespace GameDay2
                     BigInteger totalScore = 0;
 
                     // Sum scores
-                    foreach (var gameRecord in gameRecords)
+                    foreach (var strategyRecord in strategyRecords)
                     {
-                        string playerChoice = gameStrategy.DeterminePlayerChoice(gameRecord.opponentChoice, gameRecord.playerStrategyChoice);
-                        if (referee.PlayerChoicesAreValid(gameRecord.opponentChoice, playerChoice))
-                            totalScore += referee.GetGameScorePlayer(gameRecord.opponentChoice, playerChoice);
+                        string playerChoice = gameStrategy.DeterminePlayerChoice(strategyRecord.opponentChoice, strategyRecord.playerStrategyChoice);
+                        if (referee.PlayerChoicesAreValid(strategyRecord.opponentChoice, playerChoice))
+                            totalScore += referee.GetGameScorePlayer(strategyRecord.opponentChoice, playerChoice);
                         else
-                            throw new ArgumentException(string.Format("Onjuiste invoer gevonden in dataset: {0}, {1}", gameRecord.opponentChoice, playerChoice));
+                            throw new ArgumentException(string.Format("Onjuiste invoer gevonden in dataset: {0}, {1}", strategyRecord.opponentChoice, playerChoice));
                     }
 
                     // Present totalscore

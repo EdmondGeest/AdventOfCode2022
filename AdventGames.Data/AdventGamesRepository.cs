@@ -18,16 +18,16 @@ namespace AdventGames.Data
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns>Wedstrijdresultaten</returns>
-        public List<RPSGameRecord> GetRPSRecords(string fileName)
+        public List<RPSStrategyRecord> GetRPSStrategyGuide(string fileName)
         {
-            List<RPSGameRecord> result = new List<RPSGameRecord>();
+            List<RPSStrategyRecord> result = new List<RPSStrategyRecord>();
 
-            IEnumerable<string> rpsGameRecords = File.ReadLines(fileName);
-            foreach (string psGameResult in rpsGameRecords)
+            IEnumerable<string> rpsStrategyRecords = File.ReadLines(fileName);
+            foreach (string record in rpsStrategyRecords)
             {
-                string[] gameRecord = psGameResult.Split(new char[] { ' ', });
-                RPSGameRecord rpsRecord = RPSGameRecord.Create(gameRecord[0], gameRecord[1]);
-                result.Add(rpsRecord);
+                string[] strategyRecordFields = record.Split(new char[] { ' ', });
+                RPSStrategyRecord rpsStrategyRecord = RPSStrategyRecord.Create(strategyRecordFields[0], strategyRecordFields[1]);
+                result.Add(rpsStrategyRecord);
             }
 
             return result;

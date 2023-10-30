@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace AdventGames.Data.Models
 {
-    public class RPSGameRecord
+    public class RPSStrategyRecord
     {
         public string opponentChoice { get; set; }
         public string playerStrategyChoice { get; set; }
 
-        public static RPSGameRecord Create(string opponentInput, string playerInput)
+        public static RPSStrategyRecord Create(string opponentInput, string playerInput)
         {
-            return new RPSGameRecord {  opponentChoice = opponentInput.Trim(), playerStrategyChoice = playerInput.Trim() };
+            return new RPSStrategyRecord {  opponentChoice = opponentInput.Trim(), playerStrategyChoice = playerInput.Trim() };
         }
     }
 }
