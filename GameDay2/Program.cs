@@ -36,6 +36,7 @@ namespace GameDay2
                 AdventGamesRepository repository = AdventGamesRepository.Create();
                 List<RPSGameRecord> gameRecords = repository.GetRPSRecords(@"Data\Day2GameData.txt");
 
+                // loop through strategies and show totalscore
                 for (int i = 1; i <= 2; i++)
                 {
                     // Init strategy en totalscore

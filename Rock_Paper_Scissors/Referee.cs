@@ -36,13 +36,13 @@ namespace Rock_Paper_Scissors
         /// <returns>Score van playerChoice</returns>
         public int GetGameScorePlayer(string opponentChoice, string playerChoice)
         {
-            // Bepaal basisscore player
+            // Bepaal basisscore playerChoice
             int scorePlayer = DetermineBaseScorePlayer(playerChoice);
 
             // Bepaal het wedstrijdresultaat
             GameResultEnum gameResultPlayer = DetermineGameResultPlayer(opponentChoice, playerChoice);
 
-            // Bepaal eindscore player
+            // Bepaal eindscore playerChoice
             scorePlayer = DetermineFinalScorePlayer(scorePlayer, gameResultPlayer);
 
             return scorePlayer;
@@ -54,12 +54,12 @@ namespace Rock_Paper_Scissors
         /// Paper => 2 punten
         /// Sciccors => 3 punten
         /// </summary>
-        /// <param name="player"></param>
+        /// <param name="playerChoice"></param>
         /// <returns>de basisscore</returns>
-        private int DetermineBaseScorePlayer(string player)
+        private int DetermineBaseScorePlayer(string playerChoice)
         {
             int score = 0;
-            switch (player.ToLower())
+            switch (playerChoice.ToLower())
             {
                 case Rock:
                     score = 1;
@@ -78,7 +78,7 @@ namespace Rock_Paper_Scissors
         }
 
         /// <summary>
-        /// Deze functie bepaalt de wedstrijduitslag voor player
+        /// Deze functie bepaalt de wedstrijduitslag voor playerChoice
         /// Win
         /// Draw
         /// Loss
