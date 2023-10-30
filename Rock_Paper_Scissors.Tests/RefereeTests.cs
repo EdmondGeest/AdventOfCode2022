@@ -26,5 +26,18 @@ namespace Rock_Paper_Scissors.Tests
 
             Assert.AreEqual(expectedScore, result);
         }
+
+        [DataRow("a", "A", true)]
+        [DataRow("b", "B", true)]
+        [DataRow("b", "C", true)]
+        [DataRow("x", "X", false)]
+        [TestMethod]
+        public void Referee_Validates_PlayerChoices(string choicePlayer1, string choicePlayer2, bool valid)
+        {
+            Referee referee = new Referee();
+            var result = referee.PlayerChoicesAreValid(choicePlayer1, choicePlayer2);
+
+            Assert.AreEqual(valid, result);
+        }
     }
 }

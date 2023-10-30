@@ -7,6 +7,11 @@ namespace AdventGames.Data
     /// </summary>
     public class AdventGamesRepository
     {
+        public static AdventGamesRepository Create()
+        {
+            return new AdventGamesRepository();
+        }
+
         /// <summary>
         /// Deze functie leest de rock paper scissors gegevens in uit een tekst bestand 
         /// en levert vervolgens een lijst met wedstrijdresultaten.

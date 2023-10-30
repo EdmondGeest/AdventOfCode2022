@@ -23,21 +23,23 @@ namespace GameDay25
             try
             {
                 // Initialize
-                SNAFUNumberConvertor convertor = new SNAFUNumberConvertor();
+                SNAFUNumberConvertor convertor = SNAFUNumberConvertor.Create();
+                INumberAdapter SNAFUAdapter = SNAFUNumberAdapter.Create(convertor);
+
                 Decimal result = 0;
 
                 // Read data
-                AdventGamesRepository repository = new AdventGamesRepository();
+                AdventGamesRepository repository = AdventGamesRepository.Create();
                 List<SnafuNumberRecord> snafuNumbers = repository.GetSnafuNumberRecords(@"Data\Day25GameData.txt");
 
                 // Convert items to decimals and sum up
                 foreach (var number in snafuNumbers)
                 {
-                    result += convertor.ConvertSnafuNumberToDecimal(number.Number);
+                    result += SNAFUAdapter.TodecimalNumber(number.Number);
                 }
 
                 // Convert sum of bigint to snafunumber
-                String snafuNumber = convertor.ConvertDecimalToSnafuNumber(result);
+                String snafuNumber = SNAFUAdapter.ToStringNumber(result);
 
                 // Present snafunumber
                 Console.WriteLine(string.Format("Het SNAFU nummer is {0}", snafuNumber));

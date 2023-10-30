@@ -10,9 +10,9 @@
         [TestMethod]
         public void FirstStrategy_Sets_Correct_Choice_For_Player(string player1Play, string player2Play, string expectedChoice)
         {
-            IGameStrategy gameStrategy = new FirstGameStrategy();
+            IGameStrategy gameStrategy = new Part1GameStrategy();
             string player1Choice = player1Play;
-            string player2Choice = gameStrategy.DetermineGameChoice(player1Choice, player2Play);
+            string player2Choice = gameStrategy.DeterminePlayerChoice(player1Choice, player2Play);
 
             Assert.AreEqual(expectedChoice, player2Choice);
         }
@@ -23,9 +23,9 @@
         [TestMethod]
         public void SecondStrategy_Sets_Correct_Choice_For_Player(string player1Play, string player2Play, string expectedChoice)
         {
-            IGameStrategy gameStrategy = new SecondGameStrategy();
+            IGameStrategy gameStrategy = new Part2GameStrategy();
             string player1Choice = player1Play;
-            string player2Choice = gameStrategy.DetermineGameChoice(player1Choice, player2Play);
+            string player2Choice = gameStrategy.DeterminePlayerChoice(player1Choice, player2Play);
 
             Assert.AreEqual(expectedChoice, player2Choice);
         }

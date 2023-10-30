@@ -12,6 +12,11 @@ namespace Full_Of_Hot_Air
     /// </summary>
     public class SNAFUNumberConvertor
     {
+        public static SNAFUNumberConvertor Create()
+        {
+            return new SNAFUNumberConvertor();
+        }
+
         // De te gebuiken snafu digits
         private string SnafuDigits = "=-012";
 

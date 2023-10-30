@@ -8,12 +8,12 @@ namespace AdventGames.Data.Models
 {
     public class RPSGameRecord
     {
-        public string opponentInput { get; set; }
-        public string playerInput { get; set; }
+        public string opponentChoice { get; set; }
+        public string playerStrategyChoice { get; set; }
 
         public static RPSGameRecord Create(string opponentInput, string playerInput)
         {
-            return new RPSGameRecord {  opponentInput = opponentInput.Trim(), playerInput = playerInput.Trim() };
+            return new RPSGameRecord {  opponentChoice = opponentInput.Trim(), playerStrategyChoice = playerInput.Trim() };
         }
     }
 }

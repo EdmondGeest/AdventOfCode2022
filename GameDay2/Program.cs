@@ -18,10 +18,9 @@ namespace GameDay2
                 "De wedstrijdresultaten staan in een bestand wat bij deze code wordt meegeleverd\n" +
                 "Zie Data\\Day2Gamedata.txt\n" +
                 "\n" +
-                "Er kan een spel strategy gekozen worden door op de commandline\n" +
-                "een 1 voor de strategie van part 1 of een 2 voor de strategie van part 2 in te voeren:\n" +
-                "Gameday2 <gamestrategy>\n" +
-                "Zonder keuze wordt strategie 1 gebruikt\n" +
+                "In het spel komen 2 spel strategieen voor\n" +
+                "een strategie voor part 1 en een strategie voor part 2\n" +
+                "De strategieen worden na elkaar toegepast op de wedstrijdresultaten\n" +
                 "\n" +
                 "Het resultaat kan ingevoerd worden op https://adventofcode.com/2022/day/2" +
                 "\n");
@@ -29,28 +28,34 @@ namespace GameDay2
             try
             {
                 // Initialize                
-                // Default the firstgamestrategy is selected.
-                IGameStrategy gameStrategy = DeterminegameStrategy(args);
 
                 // De referee is de scheidsrechter die de regels kent en de score bepaalt
-                Referee referee = new Referee();
-                BigInteger totalScore = 0;
+                Referee referee = Referee.Create();
 
-                // Read data
-                AdventGamesRepository repository = new AdventGamesRepository();
-                List<RPSGameRecord> data = repository.GetRPSRecords(@"Data\Day2GameData.txt");
+                // Read gameRecords
+                AdventGamesRepository repository = AdventGamesRepository.Create();
+                List<RPSGameRecord> gameRecords = repository.GetRPSRecords(@"Data\Day2GameData.txt");
 
-                // Sum scores
-                foreach (var item in data)
+                for (int i = 1; i <= 2; i++)
                 {
-                    string opponentChoice = item.opponentInput;
-                    string playerChoice = gameStrategy.DetermineGameChoice(opponentChoice, item.playerInput);
+                    // Init strategy en totalscore
+                    IGameStrategy gameStrategy = SelectGameStrategy(i);
+                    BigInteger totalScore = 0;
 
-                    totalScore += referee.GetGameScorePlayer(opponentChoice, playerChoice);
+                    // Sum scores
+                    foreach (var gameRecord in gameRecords)
+                    {
+                        string playerChoice = gameStrategy.DeterminePlayerChoice(gameRecord.opponentChoice, gameRecord.playerStrategyChoice);
+                        if (referee.PlayerChoicesAreValid(gameRecord.opponentChoice, playerChoice))
+                            totalScore += referee.GetGameScorePlayer(gameRecord.opponentChoice, playerChoice);
+                        else
+                            throw new ArgumentException(string.Format("Onjuiste invoer gevonden in dataset: {0}, {1}", gameRecord.opponentChoice, playerChoice));
+                    }
+
+                    // Present totalscore
+                    Console.WriteLine(string.Format("Totale score volgens strategie van part {0} = {1}", i, totalScore));
                 }
 
-                // Present totalscore
-                Console.WriteLine(string.Format("Totale score = {0}", totalScore));
             }
             catch (Exception ex)
             {
@@ -62,27 +67,18 @@ namespace GameDay2
             Console.ReadKey();
         }
 
-        private static IGameStrategy DeterminegameStrategy(string[] args)
+        private static IGameStrategy SelectGameStrategy(int partNumber)
         {
-            string strategyChoice = "1";
-            IGameStrategy gameStrategy;
-
-            if (args.Length > 0)
-                strategyChoice = args[0];
-
-            switch (strategyChoice)
+            switch (partNumber)
             {
-                case "2":
-                    gameStrategy = new SecondGameStrategy();
-                    Console.WriteLine("Strategie geselecteerd van part 2");
-                    break;
-                case "1":
-                default:
-                    gameStrategy = new FirstGameStrategy();
+                case 1:
                     Console.WriteLine("Strategie geselecteerd van part 1");
-                    break;
+                    return Part1GameStrategy.Create();
+                case 2:
+                    Console.WriteLine("Strategie geselecteerd van part 2");
+                    return Part2GameStrategy.Create();
             }
-            return gameStrategy;
+            throw new ArgumentException(string.Format("Onbekend part nummer: {0}", partNumber));
         }
     }
 }

@@ -6,14 +6,19 @@ using System.Threading.Tasks;
 
 namespace Rock_Paper_Scissors
 {
-    public class SecondGameStrategy : IGameStrategy
+    public class Part2GameStrategy : IGameStrategy
     {
-        public string DetermineGameChoice(string opponentChoice, string playerChoice)
+        public static Part2GameStrategy Create()
+        {
+            return new Part2GameStrategy();
+        }
+
+        public string DeterminePlayerChoice(string opponentChoice, string playerStrategyChoice)
         {
             string choiceOpponent = opponentChoice.ToLower();
-            string choicePlayer = playerChoice.ToLower();
+            string strategyChoice = playerStrategyChoice.ToLower();
 
-            switch (choicePlayer)
+            switch (strategyChoice)
             {
                 case "y": // Draw
                     switch (choiceOpponent)

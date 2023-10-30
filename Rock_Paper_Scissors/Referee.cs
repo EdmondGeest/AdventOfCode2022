@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,8 +14,15 @@ namespace Rock_Paper_Scissors
     /// </summary>
     public class Referee
     {
+        private string validChoices = "abcABC";
+
         public Referee() 
         {
+        }
+
+        public static Referee Create()
+        {
+            return new Referee();
         }
 
         /// <summary>
@@ -161,5 +169,18 @@ namespace Rock_Paper_Scissors
             return score;
         }
 
+        /// <summary>
+        /// Deze functie controleert of de choices van de spelers geldig zijn: a, b, c, A, B of C
+        /// </summary>
+        /// <param name="opponentChoice"></param>
+        /// <param name="playerChoice"></param>
+        /// <returns></returns>
+        public bool PlayerChoicesAreValid(string opponentChoice, string playerChoice)
+        {
+            if ((validChoices.Any(x => x.ToString().Equals(opponentChoice))) && (validChoices.Any(x => x.ToString().Equals(playerChoice))))
+                return true;
+            else
+                return false;
+        }
     }
 }
