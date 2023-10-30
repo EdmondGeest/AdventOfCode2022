@@ -38,7 +38,7 @@ namespace GameDay25
                     result += SNAFUAdapter.TodecimalNumber(number.Number);
                 }
 
-                // Convert sum of bigint to snafunumber
+                // Convert sum to snafunumber
                 String snafuNumber = SNAFUAdapter.ToStringNumber(result);
 
                 // Present snafunumber

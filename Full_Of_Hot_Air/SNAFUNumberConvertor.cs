@@ -150,7 +150,7 @@ namespace Full_Of_Hot_Air
 
         /// <summary>
         /// Met deze functie bepalen we de macht van 5 die groter is dan het aangeleverde nummer
-        /// Met de daaonderliggende power kunnen we dus een waarde bepalen die in de buurt ligt 
+        /// Met de daaronderliggende power kunnen we dus een waarde bepalen die in de buurt ligt 
         /// van het aangeleverde nummer
         /// </summary>
         /// <param name="decimalNumber"></param>

@@ -15,6 +15,9 @@ namespace Rock_Paper_Scissors
     public class Referee
     {
         private string validChoices = "abcABC";
+        private const string Rock = "a";
+        private const string Paper = "b";
+        private const string Scissors = "c";
 
         public Referee() 
         {
@@ -58,13 +61,13 @@ namespace Rock_Paper_Scissors
             int score = 0;
             switch (player.ToLower())
             {
-                case "a":
+                case Rock:
                     score = 1;
                     break;
-                case "b":
+                case Paper:
                     score = 2;
                     break;
-                case "c":
+                case Scissors:
                     score = 3;
                     break;
                 default:
@@ -88,48 +91,48 @@ namespace Rock_Paper_Scissors
             GameResultEnum gameResult = GameResultEnum.Draw;
             switch (opponentChoice.ToLower())
             {
-                case "a":
+                case Rock:
                     switch (playerChoice.ToLower())
                     {
-                        case "a":
+                        case Rock:
                             gameResult = GameResultEnum.Draw;
                             break;
-                        case "b":
+                        case Paper:
                             gameResult = GameResultEnum.Win;
                             break;
-                        case "c":
+                        case Scissors:
                             gameResult = GameResultEnum.Loss;
                             break;
                         default:
                             break;
                     }
                     break;
-                case "b":
+                case Paper:
                     switch (playerChoice.ToLower())
                     {
-                        case "a":
+                        case Rock:
                             gameResult = GameResultEnum.Loss;
                             break;
-                        case "b":
+                        case Paper:
                             gameResult = GameResultEnum.Draw;
                             break;
-                        case "c":
+                        case Scissors:
                             gameResult = GameResultEnum.Win;
                             break;
                         default:
                             break;
                     }
                     break;
-                case "c":
+                case Scissors:
                     switch (playerChoice.ToLower())
                     {
-                        case "a":
+                        case Rock:
                             gameResult = GameResultEnum.Win;
                             break;
-                        case "b":
+                        case Paper:
                             gameResult = GameResultEnum.Loss;
                             break;
-                        case "c":
+                        case Scissors:
                             gameResult = GameResultEnum.Draw;
                             break;
                         default:

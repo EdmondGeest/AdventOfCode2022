@@ -8,6 +8,10 @@ namespace Rock_Paper_Scissors
 {
     public class Part2GameStrategy : IGameStrategy
     {
+        private const string Rock = "a";
+        private const string Paper = "b";
+        private const string Scissors = "c";
+
         public static Part2GameStrategy Create()
         {
             return new Part2GameStrategy();
@@ -23,9 +27,9 @@ namespace Rock_Paper_Scissors
                 case "y": // Draw
                     switch (choiceOpponent)
                     {
-                        case "a": return "a";
-                        case "b": return "b";
-                        case "c": return "c";
+                        case Rock: return Rock;
+                        case Paper: return Paper;
+                        case Scissors: return Scissors;
                         default:
                             break;
                     }
@@ -33,9 +37,9 @@ namespace Rock_Paper_Scissors
                 case "x": // Lose
                     switch (choiceOpponent)
                     {
-                        case "a": return "c";
-                        case "b": return "a";
-                        case "c": return "b";
+                        case Rock: return Scissors;
+                        case Paper: return Rock;
+                        case Scissors: return Paper;
                         default:
                             break;
                     }
@@ -43,9 +47,9 @@ namespace Rock_Paper_Scissors
                 case "z": // Win
                     switch (choiceOpponent)
                     {
-                        case "a": return "b";
-                        case "b": return "c";
-                        case "c": return "a";
+                        case Rock: return Paper;
+                        case Paper: return Scissors;
+                        case Scissors: return Rock;
                         default:
                             break;
                     }

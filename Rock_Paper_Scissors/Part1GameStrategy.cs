@@ -8,6 +8,10 @@ namespace Rock_Paper_Scissors
 {
     public class Part1GameStrategy : IGameStrategy
     {
+        private const string Rock = "a";
+        private const string Paper = "b";
+        private const string Scissors = "c";
+
         public static Part1GameStrategy Create()
         {
             return new Part1GameStrategy();
@@ -18,9 +22,9 @@ namespace Rock_Paper_Scissors
             var strategyChoice = playerStrategyChoice.ToLower();
             switch (strategyChoice)
             {
-                case "x": return "a";
-                case "y": return "b";
-                case "z": return "c";
+                case "x": return Rock;
+                case "y": return Paper;
+                case "z": return Scissors;
                 default:
                     break;
             }
