@@ -15,12 +15,12 @@ namespace GameDay2
                 "Dit programma berekent de totale score van een aantal wedstrijden\n" +
                 "Rock Paper Scissors op basis van een spel strategie\n" +
                 "\n" +
-                "De wedstrijdresultaten staan in een bestand wat bij deze code wordt meegeleverd\n" +
+                "De strategie data staat in een bestand wat bij deze code wordt meegeleverd\n" +
                 "Zie Data\\Day2Gamedata.txt\n" +
                 "\n" +
-                "In het spel komen 2 spel strategieen voor\n" +
+                "Er zijn 2 spel strategieen:\n" +
                 "een strategie voor part 1 en een strategie voor part 2\n" +
-                "De strategieen worden na elkaar toegepast op de wedstrijdresultaten\n" +
+                "De strategieen worden na elkaar toegepast op dezelfde strategie data\n" +
                 "\n" +
                 "Het resultaat kan ingevoerd worden op https://adventofcode.com/2022/day/2" +
                 "\n");
